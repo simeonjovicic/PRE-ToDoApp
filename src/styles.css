@@ -1,0 +1,228 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.navbar {
+    background-color: #333;
+    color: white;
+    width: 250px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.navbar h2 {
+    margin-top: 0;
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.navbar li {
+    padding: 10px;
+    background-color: #444;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar li:hover {
+    background-color: #555;
+}
+
+.navbar li .edit-board,
+.navbar li .delete-board {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.navbar form {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar input[type="text"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.navbar button {
+    padding: 10px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.navbar button:hover {
+    background-color: #218838;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#columns {
+    display: flex;
+    overflow-x: auto;
+    flex-grow: 1;
+}
+
+.column {
+    background-color: #eee;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.column-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.todo-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.todo-input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.todo-form button {
+    padding: 10px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.todo-form button:hover {
+    background-color: #218838;
+}
+
+.todo-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.todo-list li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.todo-list li.achieved {
+    text-decoration: line-through;
+    background-color: #d4edda;
+}
+
+.todo-list li button {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.todo-list li button:hover {
+    background-color: #c82333;
+}
+
+.todo-list li .achieve-button {
+    background-color: #28a745;
+    margin-right: 5px;
+}
+
+.todo-list li .achieve-button:hover {
+    background-color: #218838;
+}
+
+#toggle-nav {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.navbar-collapsed {
+    width: 50px;
+    transition: width 0.3s;
+}
+
+.navbar-collapsed ul,
+.navbar-collapsed form,
+.navbar-collapsed h2 {
+    display: none;
+}
+
+.navbar-collapsed #toggle-nav {
+    margin-bottom: 0;
+}
+
+#add-card {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#add-card:hover {
+    background-color: #0056b3;
+}
