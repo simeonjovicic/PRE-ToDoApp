@@ -178,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
             switchBoard(newBoard);
         }
     });
-
     toggleNavButton.addEventListener('click', () => {
         navbar.classList.toggle('navbar-collapsed');
     });

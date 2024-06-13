@@ -15,7 +15,6 @@ const createWindow = () => {
       devTools: false
     },
   });
-
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
   mainWindow.webContents.openDevTools();
 };
