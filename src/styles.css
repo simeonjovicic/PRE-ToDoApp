@@ -226,3 +226,39 @@ h1 {
 #add-card:hover {
     background-color: #0056b3;
 }
+
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-column {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.edit-column:hover {
+    color: #0056b3;
+}
+
+.context-menu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.context-menu-option {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.context-menu-option:hover {
+    background-color: #f4f4f4;
+}

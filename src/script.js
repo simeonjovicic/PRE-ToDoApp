@@ -66,16 +66,32 @@ document.addEventListener('DOMContentLoaded', () => {
             const columnDiv = document.createElement('div');
             columnDiv.classList.add('column');
 
+            const columnHeader = document.createElement('div');
+            columnHeader.classList.add('column-header');
+
             const columnTitle = document.createElement('div');
             columnTitle.classList.add('column-title');
             columnTitle.textContent = column.title || `Column ${columnIndex + 1}`;
-            columnTitle.addEventListener('click', () => {
-                const newTitle = prompt('Enter new column title', columnTitle.textContent);
+
+            const editButton = document.createElement('button');
+            editButton.textContent = '✎';
+            editButton.classList.add('edit-column');
+            editButton.addEventListener('click', () => {
+                const newTitle = prompt('Enter new column title', column.title || `Column ${columnIndex + 1}`);
                 if (newTitle) {
                     column.title = newTitle;
                     renderColumns();
                 }
             });
+
+            // Add the right-click event listener to the column header
+            columnHeader.addEventListener('contextmenu', (event) => {
+                showContextMenu(columnIndex, event);
+            });
+
+            columnHeader.appendChild(columnTitle);
+            columnHeader.appendChild(editButton);
+            columnDiv.appendChild(columnHeader);
 
             const todoForm = document.createElement('form');
             todoForm.classList.add('todo-form');
@@ -131,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 todoList.appendChild(li);
             });
 
-            columnDiv.appendChild(columnTitle);
             columnDiv.appendChild(todoList);
             columnDiv.appendChild(todoForm);
             columnsDiv.appendChild(columnDiv);
@@ -139,12 +154,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addTask(columnIndex, task) {
-        boards[currentBoard][columnIndex].tasks.push({text: task, achieved: false});
+        boards[currentBoard][columnIndex].tasks.push({ text: task, achieved: false });
         renderColumns();
     }
 
     function addColumn() {
-        boards[currentBoard].push({title: `Column ${boards[currentBoard].length + 1}`, tasks: []});
+        boards[currentBoard].push({ title: `Column ${boards[currentBoard].length + 1}`, tasks: [] });
+        renderColumns();
+    }
+
+    function deleteColumn(columnIndex) {
+        boards[currentBoard].splice(columnIndex, 1);
         renderColumns();
     }
 
@@ -152,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const newBoard = boardInput.value;
         if (!boards[newBoard]) {
-            boards[newBoard] = [{title: `Column 1`, tasks: []}];
+            boards[newBoard] = [{ title: `Column 1`, tasks: [] }];
             boardInput.value = '';
             renderBoards();
             switchBoard(newBoard);
@@ -166,7 +186,52 @@ document.addEventListener('DOMContentLoaded', () => {
     addCardButton.addEventListener('click', addColumn);
 
     // Initialize with default board
-    boards['Default'] = [{title: 'Column 1', tasks: []}];
+    boards['Default'] = [{ title: 'Column 1', tasks: [] }];
     renderBoards();
     switchBoard('Default');
 });
+
+function showContextMenu(columnIndex, event) {
+    // Prevent the default context menu from appearing
+    event.preventDefault();
+
+    // Remove any existing context menu
+    const existingMenu = document.querySelector('.context-menu');
+    if (existingMenu) {
+        document.body.removeChild(existingMenu);
+    }
+
+    // Create the context menu
+    const contextMenu = document.createElement('div');
+    contextMenu.classList.add('context-menu');
+    contextMenu.style.top = `${event.clientY}px`;
+    contextMenu.style.left = `${event.clientX}px`;
+
+    // Create the delete option
+    const deleteOption = document.createElement('div');
+    deleteOption.textContent = 'Delete Column';
+    deleteOption.classList.add('context-menu-option');
+    deleteOption.addEventListener('click', () => {
+        if (confirm(`Are you sure you want to delete this column?`)) {
+            deleteColumn(columnIndex);
+        }
+        if (document.body.contains(contextMenu)) {
+            document.body.removeChild(contextMenu);
+        }
+    });
+
+    contextMenu.appendChild(deleteOption);
+
+    // Add the context menu to the body
+    document.body.appendChild(contextMenu);
+
+    // Remove the context menu when clicking outside of it
+    document.addEventListener('click', function handleClickOutside(event) {
+        if (!contextMenu.contains(event.target)) {
+            if (document.body.contains(contextMenu)) {
+                document.body.removeChild(contextMenu);
+            }
+            document.removeEventListener('click', handleClickOutside);
+        }
+    });
+}
